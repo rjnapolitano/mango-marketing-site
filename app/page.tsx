@@ -1,92 +1,284 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+type Theme = 'light' | 'dark' | 'system';
 
 export default function Home() {
   const [showContact, setShowContact] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [theme, setTheme] = useState<Theme>('system');
+  const [systemPrefersDark, setSystemPrefersDark] = useState(true);
+
+  // Detect system preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setSystemPrefersDark(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setSystemPrefersDark(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => setLoaded(true), 100);
+  }, []);
+
+  // Determine if dark mode should be active
+  const isDark = theme === 'system' ? systemPrefersDark : theme === 'dark';
 
   return (
-    <main className="relative h-screen w-screen overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source src="/video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <main className={`relative min-h-screen w-screen flex flex-col transition-colors duration-700 ${
+      isDark ? 'bg-black' : 'bg-white'
+    }`}>
+      {/* Top right controls */}
+      <div className="absolute top-0 right-0 z-20 p-3 md:p-6 flex items-center gap-1.5 md:gap-3">
+        {/* Light mode button */}
+        <button
+          onClick={() => setTheme('light')}
+          className={`p-1.5 md:p-2 rounded-md transition-all duration-300 ${
+            theme === 'light'
+              ? isDark ? 'bg-white text-black shadow-lg' : 'bg-black text-white shadow-lg'
+              : isDark ? 'bg-white/10 text-white hover:bg-white/15' : 'bg-black/10 text-black hover:bg-black/15'
+          }`}
+          aria-label="Light mode"
+        >
+          <svg width="14" height="14" className="md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
 
-      {/* Overlay for better text visibility */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black/30" />
+        {/* Dark mode button */}
+        <button
+          onClick={() => setTheme('dark')}
+          className={`p-1.5 md:p-2 rounded-md transition-all duration-300 ${
+            theme === 'dark'
+              ? isDark ? 'bg-white text-black shadow-lg' : 'bg-black text-white shadow-lg'
+              : isDark ? 'bg-white/10 text-white hover:bg-white/15' : 'bg-black/10 text-black hover:bg-black/15'
+          }`}
+          aria-label="Dark mode"
+        >
+          <svg width="14" height="14" className="md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        {!showContact ? (
-          <>
-            {/* Logo or Brand Name - Optional */}
-            <h1 className="text-white text-6xl md:text-8xl font-bold mb-12 tracking-tight">
-              YOUR BRAND
+        {/* System mode button */}
+        <button
+          onClick={() => setTheme('system')}
+          className={`p-1.5 md:p-2 rounded-md transition-all duration-300 ${
+            theme === 'system'
+              ? isDark ? 'bg-white text-black shadow-lg' : 'bg-black text-white shadow-lg'
+              : isDark ? 'bg-white/10 text-white hover:bg-white/15' : 'bg-black/10 text-black hover:bg-black/15'
+          }`}
+          aria-label="System theme"
+        >
+          <svg width="14" height="14" className="md:w-4 md:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </button>
+
+        <div className={`w-px h-5 md:h-6 mx-0.5 md:mx-1 ${isDark ? 'bg-white/20' : 'bg-black/20'}`} />
+
+        <a
+          href="https://app.onghost.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-xs md:text-sm px-2.5 md:px-4 py-1 md:py-1.5 rounded-md transition-all duration-300 ${
+            isDark
+              ? 'text-white hover:bg-white/10'
+              : 'text-black hover:bg-black/10'
+          }`}
+        >
+          Login
+        </a>
+      </div>
+
+      {/* Main content - video as focal point */}
+      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-4">
+        <div className={`w-full max-w-6xl transition-all duration-1000 ${
+          loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+
+          {/* Logo Image */}
+          <div className="flex justify-center mb-5 md:mb-8">
+            <div className="w-[180px] h-[180px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] flex items-center justify-center">
+              <img
+                src="/mango-logo.png"
+                alt="Mango"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Text content - wider, centered container */}
+          <div className="max-w-sm md:max-w-3xl mx-auto">
+            <h1 className={`text-lg md:text-2xl lg:text-3xl mb-4 md:mb-6 font-light leading-snug tracking-tight transition-colors ${
+              isDark ? 'text-white' : 'text-black'
+            }`}>
+              Mango is a creative agency built for the future of influencer marketing.
             </h1>
 
-            {/* Contact Button */}
-            <button
-              onClick={() => setShowContact(true)}
-              className="group relative px-12 py-5 text-xl font-semibold text-white border-2 border-white rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
-            >
-              <span className="relative z-10">Contact Us</span>
-              <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              <span className="absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Contact Us
-              </span>
-            </button>
-          </>
+            <div className={`space-y-3 md:space-y-4 text-xs md:text-base font-light leading-relaxed transition-colors ${
+              isDark ? 'text-zinc-400' : 'text-zinc-600'
+            }`}>
+              <p>
+                Our agency works with over 10,000 influencers and is currently partnered with a small number of beta partners. We help you organize, run, and implement your entire influencer marketing strategy, end to end.
+              </p>
+
+              <p>
+                Our AI uses data to match your brand with the highest-performing influencers and strategies based on your competition, your niche, and your goals. What works gets amplified, compounding into performance, cost, speed, and ROI that manual processes can't come close to matching.
+              </p>
+
+              <p>
+                We're currently working with a limited number of beta partners. If you're interested in learning more, reach out below.
+              </p>
+
+              <p className="italic">
+                The future of advertising is already here, it's just not evenly distributed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom navigation */}
+      <div className="px-4 md:px-16 lg:px-24 py-3 md:py-6">
+        {!showContact ? (
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-3">
+            <div>
+              <nav className={`mb-2 text-sm md:text-[15px] font-semibold transition-colors flex items-center gap-3 ${
+                isDark ? 'text-white' : 'text-black'
+              }`}>
+                <a
+                  href="https://onghost.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  Creator?
+                </a>
+                <span>•</span>
+                <button
+                  onClick={() => setShowContact(true)}
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  Contact
+                </button>
+              </nav>
+              <p className={`text-xs md:text-[15px] transition-colors ${
+                isDark ? 'text-zinc-400' : 'text-zinc-600'
+              }`}>
+                A creative agency built for the future of influencer marketing.
+              </p>
+            </div>
+
+            <div className={`text-xs md:text-[15px] transition-colors ${
+              isDark ? 'text-zinc-400' : 'text-zinc-600'
+            }`}>
+              Los Angeles, CA ☀️
+            </div>
+          </div>
         ) : (
-          /* Contact Form */
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 md:p-12 max-w-md w-full shadow-2xl">
-            <button
+          <div className="fixed inset-0 z-30">
+            {/* Backdrop */}
+            <div
+              className={`absolute inset-0 transition-opacity duration-500 ${
+                isDark ? 'bg-black/60' : 'bg-white/60'
+              } backdrop-blur-sm`}
               onClick={() => setShowContact(false)}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl"
-            >
-              ×
-            </button>
+              style={{ animation: 'fadeIn 0.5s ease-out' }}
+            />
 
-            <h2 className="text-3xl font-bold mb-6 text-gray-900">Get in Touch</h2>
+            {/* Drawer sliding up from bottom */}
+            <div className={`absolute bottom-0 left-0 right-0 rounded-t-3xl transition-all duration-500 ${
+              isDark ? 'bg-black' : 'bg-white'
+            }`} style={{ animation: 'slideUp 0.5s ease-out' }}>
+              <div className="max-w-2xl mx-auto px-6 md:px-12 py-8 md:py-12">
+                {/* Close button */}
+                <button
+                  onClick={() => setShowContact(false)}
+                  className={`absolute top-6 right-6 text-3xl transition-colors ${
+                    isDark ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'
+                  }`}
+                >
+                  ×
+                </button>
 
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition-all"
-                />
+                <h2 className={`text-2xl md:text-3xl text-center mb-10 md:mb-12 font-light transition-colors ${
+                  isDark ? 'text-white' : 'text-black'
+                }`}>
+                  Get in touch
+                </h2>
+
+                <form className="space-y-6 md:space-y-8" onSubmit={(e) => e.preventDefault()}>
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    required
+                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                      isDark
+                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
+                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
+                    }`}
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="Company name"
+                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                      isDark
+                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
+                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
+                    }`}
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="Monthly budget"
+                    required
+                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                      isDark
+                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
+                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
+                    }`}
+                  />
+
+                  <textarea
+                    placeholder="Tell us what you need..."
+                    rows={3}
+                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none resize-none transition-all ${
+                      isDark
+                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
+                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
+                    }`}
+                  />
+
+                  <div className="flex justify-center pt-6">
+                    <button
+                      type="submit"
+                      className={`px-12 py-3 text-base rounded-lg transition-all duration-300 ${
+                        isDark
+                          ? 'bg-white text-black hover:bg-white/90'
+                          : 'bg-black text-white hover:bg-black/90'
+                      }`}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
               </div>
-
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition-all"
-                />
-              </div>
-
-              <div>
-                <textarea
-                  placeholder="Message"
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition-all resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
+            </div>
           </div>
         )}
       </div>
