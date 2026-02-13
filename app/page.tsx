@@ -9,6 +9,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [theme, setTheme] = useState<Theme>('system');
   const [systemPrefersDark, setSystemPrefersDark] = useState(true);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   // Detect system preference
   useEffect(() => {
@@ -26,6 +27,35 @@ export default function Home() {
 
   // Determine if dark mode should be active
   const isDark = theme === 'system' ? systemPrefersDark : theme === 'dark';
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        form.reset();
+        setTimeout(() => {
+          setShowContact(false);
+          setFormStatus('idle');
+        }, 2000);
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      setFormStatus('error');
+    }
+  };
 
   return (
     <main className={`relative min-h-screen w-screen flex flex-col transition-colors duration-700 ${
@@ -237,11 +267,19 @@ export default function Home() {
                   Get in touch
                 </h2>
 
-                <form className="space-y-6 md:space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
+                  {/* Web3Forms Access Key */}
+                  <input type="hidden" name="access_key" value="656fa708-45bd-44d6-8b56-24614825e3ba" />
+
+                  {/* Honeypot for spam protection */}
+                  <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email address"
                     required
+                    disabled={formStatus === 'submitting'}
                     className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
                       isDark
                         ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
@@ -251,7 +289,9 @@ export default function Home() {
 
                   <input
                     type="text"
+                    name="company"
                     placeholder="Company name"
+                    disabled={formStatus === 'submitting'}
                     className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
                       isDark
                         ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
@@ -261,8 +301,10 @@ export default function Home() {
 
                   <input
                     type="text"
+                    name="budget"
                     placeholder="Monthly budget"
                     required
+                    disabled={formStatus === 'submitting'}
                     className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
                       isDark
                         ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
@@ -271,8 +313,10 @@ export default function Home() {
                   />
 
                   <textarea
+                    name="message"
                     placeholder="Tell us what you need..."
                     rows={3}
+                    disabled={formStatus === 'submitting'}
                     className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none resize-none transition-all ${
                       isDark
                         ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
@@ -283,15 +327,26 @@ export default function Home() {
                   <div className="flex justify-center pt-6">
                     <button
                       type="submit"
+                      disabled={formStatus === 'submitting'}
                       className={`px-12 py-3 text-base rounded-lg transition-all duration-300 ${
+                        formStatus === 'submitting'
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      } ${
                         isDark
                           ? 'bg-white text-black hover:bg-white/90'
                           : 'bg-black text-white hover:bg-black/90'
                       }`}
                     >
-                      Submit
+                      {formStatus === 'submitting' ? 'Sending...' : formStatus === 'success' ? 'Sent!' : 'Submit'}
                     </button>
                   </div>
+
+                  {formStatus === 'error' && (
+                    <p className={`text-center text-sm ${isDark ? 'text-red-400' : 'text-red-600'}`}>
+                      Something went wrong. Please try again.
+                    </p>
+                  )}
                 </form>
               </div>
             </div>
