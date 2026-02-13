@@ -10,6 +10,7 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>('system');
   const [systemPrefersDark, setSystemPrefersDark] = useState(true);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
 
   // Detect system preference
   useEffect(() => {
@@ -28,13 +29,47 @@ export default function Home() {
   // Determine if dark mode should be active
   const isDark = theme === 'system' ? systemPrefersDark : theme === 'dark';
 
+  // Validate email format
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus('submitting');
+    setFieldErrors({});
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    const email = formData.get('email') as string;
+    const company = formData.get('company') as string;
+    const budget = formData.get('budget') as string;
+
+    // Validate required fields
+    const errors: {[key: string]: string} = {};
+
+    if (!email) {
+      errors.email = 'Please complete this section';
+    } else if (!validateEmail(email)) {
+      errors.email = 'Please enter a valid email';
+    }
+
+    if (!company) {
+      errors.company = 'Please complete this section';
+    }
+
+    if (!budget) {
+      errors.budget = 'Please complete this section';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFormStatus('submitting');
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -48,6 +83,7 @@ export default function Home() {
         setTimeout(() => {
           setShowContact(false);
           setFormStatus('idle');
+          setFieldErrors({});
         }, 2000);
       } else {
         setFormStatus('error');
@@ -274,43 +310,92 @@ export default function Home() {
                   {/* Honeypot for spam protection */}
                   <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                    required
-                    disabled={formStatus === 'submitting'}
-                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
-                      isDark
-                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
-                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
-                    }`}
-                  />
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email address"
+                      disabled={formStatus === 'submitting'}
+                      onChange={() => setFieldErrors(prev => ({ ...prev, email: '' }))}
+                      className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                        fieldErrors.email
+                          ? isDark ? 'border-red-500' : 'border-red-600'
+                          : isDark
+                          ? 'border-white/20 focus:border-white'
+                          : 'border-black/20 focus:border-black'
+                      } ${
+                        isDark
+                          ? 'text-white placeholder-zinc-500'
+                          : 'text-black placeholder-zinc-400'
+                      }`}
+                    />
+                    {fieldErrors.email && (
+                      <div className="absolute right-0 top-4 flex items-center gap-2">
+                        <div className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-red-400' : 'text-red-600'}`}>
+                          <span className="font-medium">!</span>
+                          <span>{fieldErrors.email}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Company name"
-                    disabled={formStatus === 'submitting'}
-                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
-                      isDark
-                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
-                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
-                    }`}
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Company name"
+                      disabled={formStatus === 'submitting'}
+                      onChange={() => setFieldErrors(prev => ({ ...prev, company: '' }))}
+                      className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                        fieldErrors.company
+                          ? isDark ? 'border-red-500' : 'border-red-600'
+                          : isDark
+                          ? 'border-white/20 focus:border-white'
+                          : 'border-black/20 focus:border-black'
+                      } ${
+                        isDark
+                          ? 'text-white placeholder-zinc-500'
+                          : 'text-black placeholder-zinc-400'
+                      }`}
+                    />
+                    {fieldErrors.company && (
+                      <div className="absolute right-0 top-4 flex items-center gap-2">
+                        <div className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-red-400' : 'text-red-600'}`}>
+                          <span className="font-medium">!</span>
+                          <span>{fieldErrors.company}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-                  <input
-                    type="text"
-                    name="budget"
-                    placeholder="Monthly budget"
-                    required
-                    disabled={formStatus === 'submitting'}
-                    className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
-                      isDark
-                        ? 'border-white/20 focus:border-white text-white placeholder-zinc-500'
-                        : 'border-black/20 focus:border-black text-black placeholder-zinc-400'
-                    }`}
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="budget"
+                      placeholder="Monthly budget"
+                      disabled={formStatus === 'submitting'}
+                      onChange={() => setFieldErrors(prev => ({ ...prev, budget: '' }))}
+                      className={`w-full bg-transparent border-b px-0 py-4 text-base font-light outline-none transition-all ${
+                        fieldErrors.budget
+                          ? isDark ? 'border-red-500' : 'border-red-600'
+                          : isDark
+                          ? 'border-white/20 focus:border-white'
+                          : 'border-black/20 focus:border-black'
+                      } ${
+                        isDark
+                          ? 'text-white placeholder-zinc-500'
+                          : 'text-black placeholder-zinc-400'
+                      }`}
+                    />
+                    {fieldErrors.budget && (
+                      <div className="absolute right-0 top-4 flex items-center gap-2">
+                        <div className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-red-400' : 'text-red-600'}`}>
+                          <span className="font-medium">!</span>
+                          <span>{fieldErrors.budget}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   <textarea
                     name="message"
