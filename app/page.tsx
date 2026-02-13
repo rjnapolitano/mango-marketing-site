@@ -145,7 +145,7 @@ export default function Home() {
               </p>
 
               <p>
-                But you've probably tried it. DM'd a few creators, overpaid for a post that got 200 likes, and thought "this doesn't work." It does work. You just didn't have the system.
+                Maybe you've tried it? DM'd a few creators, got no responses, paid some influencers you didn't love that didn't get any results and thought "this doesn't work." It does work. You just didn't have the system.
               </p>
 
               <p>
