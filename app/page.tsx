@@ -84,7 +84,7 @@ export default function Home() {
           setShowContact(false);
           setFormStatus('idle');
           setFieldErrors({});
-        }, 2000);
+        }, 3000);
       } else {
         setFormStatus('error');
       }
@@ -286,6 +286,58 @@ export default function Home() {
             <div className={`absolute bottom-0 left-0 right-0 rounded-t-3xl transition-all duration-500 ${
               isDark ? 'bg-black' : 'bg-white'
             }`} style={{ animation: 'slideUp 0.5s ease-out' }}>
+              {/* Loading/Success Overlay */}
+              {(formStatus === 'submitting' || formStatus === 'success') && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 rounded-t-3xl backdrop-blur-sm bg-black/20">
+                  <div className="flex flex-col items-center gap-4">
+                    {formStatus === 'submitting' ? (
+                      <div className="relative w-16 h-16">
+                        <svg className="animate-spin" viewBox="0 0 64 64" fill="none">
+                          <circle
+                            cx="32"
+                            cy="32"
+                            r="28"
+                            stroke={isDark ? '#ffffff' : '#000000'}
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                            strokeDasharray="140 44"
+                          />
+                        </svg>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="relative w-16 h-16">
+                          <svg viewBox="0 0 64 64" fill="none">
+                            <circle
+                              cx="32"
+                              cy="32"
+                              r="28"
+                              stroke={isDark ? '#ffffff' : '#000000'}
+                              strokeWidth="4"
+                              style={{ animation: 'drawCircle 0.5s ease-out forwards' }}
+                            />
+                            <path
+                              d="M20 32 L28 40 L44 24"
+                              stroke={isDark ? '#ffffff' : '#000000'}
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              fill="none"
+                              style={{ animation: 'drawCheck 0.5s ease-out 0.3s forwards' }}
+                              strokeDasharray="40"
+                              strokeDashoffset="40"
+                            />
+                          </svg>
+                        </div>
+                        <p className={`text-sm font-light ${isDark ? 'text-white' : 'text-black'}`}>
+                          We'll reach out within 24 hours if you're a fit.
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="max-w-2xl mx-auto px-6 md:px-12 py-8 md:py-12">
                 {/* Close button */}
                 <button

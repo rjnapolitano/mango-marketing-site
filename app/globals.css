@@ -43,6 +43,24 @@ body {
   }
 }
 
+@keyframes drawCircle {
+  from {
+    stroke-dasharray: 0 176;
+  }
+  to {
+    stroke-dasharray: 176 176;
+  }
+}
+
+@keyframes drawCheck {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out forwards;
 }
