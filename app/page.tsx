@@ -153,7 +153,7 @@ export default function Home() {
               </p>
 
               <p>
-                We work directly with 10,000+ influencers on our roster. Our AI matches your brand to the exact creators and strategy based on your niche, your competition, and what's already working in your space. We handle everything end to end. What works gets amplified. What doesn't gets killed.
+                Our talent agency works with over 10,000 creators. Our AI matches your brand to the exact creators and strategy based on your niche, your competition, and what's already working in your space. We handle everything end to end. What works gets amplified. What doesn't gets killed.
               </p>
 
               <p>
