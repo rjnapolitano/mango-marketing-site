@@ -126,26 +126,42 @@ export default function Home() {
             <h1 className={`text-lg md:text-2xl lg:text-3xl mb-4 md:mb-6 font-light leading-snug tracking-tight transition-colors ${
               isDark ? 'text-white' : 'text-black'
             }`}>
-              Mango is a creative agency built for the future of influencer marketing.
+              Let's be real.
             </h1>
 
             <div className={`space-y-3 md:space-y-4 text-xs md:text-base font-light leading-relaxed transition-colors ${
               isDark ? 'text-zinc-400' : 'text-zinc-600'
             }`}>
               <p>
-                Our agency works with over 10,000 influencers and is currently partnered with a small number of beta partners. We help you organize, run, and implement your entire influencer marketing strategy, end to end.
+                You built a great product. So did your twelve competitors who launched this quarter.
               </p>
 
               <p>
-                Our AI uses data to match your brand with the highest-performing influencers and strategies based on your competition, your niche, and your goals. What works gets amplified, compounding into performance, cost, speed, and ROI that manual processes can't come close to matching.
+                The product isn't the problem. Attention is the problem.
               </p>
 
               <p>
-                We're currently working with a limited number of beta partners. If you're interested in learning more, reach out below.
+                And the highest-ROI channel for software companies right now isn't Google Ads, Facebook, or your founder posting on LinkedIn hoping something goes viral. It's influencers.
+              </p>
+
+              <p>
+                But you've probably tried it. DM'd a few creators, overpaid for a post that got 200 likes, and thought "this doesn't work." It does work. You just didn't have the system.
+              </p>
+
+              <p>
+                That's why we built Mango.
+              </p>
+
+              <p>
+                We work directly with 10,000+ influencers on our roster. Our AI matches your brand to the exact creators and strategy based on your niche, your competition, and what's already working in your space. We handle everything end to end. What works gets amplified. What doesn't gets killed.
+              </p>
+
+              <p>
+                We're only taking a small number of beta partners right now. If you're tired of watching worse products win because they market better, reach out below.
               </p>
 
               <p className="italic">
-                The future of advertising is already here, it's just not evenly distributed.
+                The future of advertising is already here. It's just not evenly distributed.
               </p>
             </div>
           </div>
