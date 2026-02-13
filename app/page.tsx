@@ -105,14 +105,14 @@ export default function Home() {
       </div>
 
       {/* Main content - video as focal point */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-4">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-2 md:py-3">
         <div className={`w-full max-w-6xl transition-all duration-1000 ${
           loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
 
           {/* Logo Image */}
-          <div className="flex justify-center mb-5 md:mb-8">
-            <div className="w-[180px] h-[180px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px] flex items-center justify-center">
+          <div className="flex justify-center mb-3 md:mb-5">
+            <div className="w-[160px] h-[160px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px] flex items-center justify-center">
               <img
                 src="/mango-logo.png"
                 alt="Mango"
@@ -123,17 +123,17 @@ export default function Home() {
 
           {/* Text content - wider, centered container */}
           <div className="max-w-sm md:max-w-3xl mx-auto">
-            <h1 className={`text-lg md:text-2xl lg:text-3xl mb-4 md:mb-6 font-light leading-snug tracking-tight transition-colors ${
+            <h1 className={`text-lg md:text-xl lg:text-2xl mb-3 md:mb-4 font-light leading-snug tracking-tight transition-colors ${
               isDark ? 'text-white' : 'text-black'
             }`}>
-              Let's be real.
+              Mango is a creative agency built for the future of influencer marketing.
             </h1>
 
-            <div className={`space-y-3 md:space-y-4 text-xs md:text-base font-light leading-relaxed transition-colors ${
+            <div className={`space-y-2 md:space-y-3 text-xs md:text-sm font-light leading-relaxed transition-colors ${
               isDark ? 'text-zinc-400' : 'text-zinc-600'
             }`}>
               <p>
-                You built a great product. So did your twelve competitors who launched this quarter.
+                Let's be real. You built a great product. So did your twelve competitors who launched this quarter.
               </p>
 
               <p>
