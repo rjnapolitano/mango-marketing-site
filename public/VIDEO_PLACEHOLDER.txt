@@ -1,0 +1,16 @@
+IMPORTANT: Add your video file here
+
+1. Name your video file: video.mp4
+2. Place it in this folder (public/)
+3. Delete this placeholder file
+
+Recommended specs:
+- Format: MP4 (H.264 codec)
+- Resolution: 1920x1080 or 1280x720
+- File size: < 10MB for web performance
+- Duration: 10-30 seconds (it loops automatically)
+
+Need a free stock video?
+- Pexels: https://www.pexels.com/videos/
+- Pixabay: https://pixabay.com/videos/
+- Coverr: https://coverr.co/
