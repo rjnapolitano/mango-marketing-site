@@ -6,12 +6,19 @@ export async function POST(request: Request) {
     const data = await request.json();
     console.log('Received funnel data:', data);
 
+    // Debug environment variables
+    console.log('Email:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+    console.log('Private key exists:', !!process.env.GOOGLE_PRIVATE_KEY);
+    console.log('Private key starts with:', process.env.GOOGLE_PRIVATE_KEY?.substring(0, 50));
+
     // Set up Google Sheets API with service account
-    // Your credentials will be stored in environment variables
+    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    console.log('Private key after replace starts with:', privateKey?.substring(0, 50));
+
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        private_key: privateKey,
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
