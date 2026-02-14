@@ -8,11 +8,74 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  tap-highlight-color: transparent !important;
+}
+
+a,
+button,
+input,
+textarea,
+div,
+span {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+}
+
 html,
 body {
   min-height: 100%;
   background-color: #000;
 }
+
+/* Prevent hanging words (widows) */
+h1, h2, h3, h4, h5, h6, p {
+  text-wrap: balance;
+}
+
+/* Fix autofill styling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* White text inputs (dark mode) */
+input.text-white:-webkit-autofill,
+input.text-white:-webkit-autofill:hover,
+input.text-white:-webkit-autofill:focus,
+input.text-white:-webkit-autofill:active,
+textarea.text-white:-webkit-autofill,
+textarea.text-white:-webkit-autofill:hover,
+textarea.text-white:-webkit-autofill:focus,
+textarea.text-white:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+
+/* Black text inputs (light mode) */
+input.text-black:-webkit-autofill,
+input.text-black:-webkit-autofill:hover,
+input.text-black:-webkit-autofill:focus,
+input.text-black:-webkit-autofill:active,
+textarea.text-black:-webkit-autofill,
+textarea.text-black:-webkit-autofill:hover,
+textarea.text-black:-webkit-autofill:focus,
+textarea.text-black:-webkit-autofill:active {
+  -webkit-text-fill-color: #000000 !important;
+  caret-color: #000000 !important;
+}
+
 
 @keyframes fadeIn {
   from {
@@ -61,6 +124,19 @@ body {
   }
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
 }

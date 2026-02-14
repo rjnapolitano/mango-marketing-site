@@ -7,10 +7,28 @@ type Theme = 'light' | 'dark' | 'system';
 export default function Home() {
   const [showContact, setShowContact] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<Theme>('system');
   const [systemPrefersDark, setSystemPrefersDark] = useState(true);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  // Load theme from localStorage after mount
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  // Save theme to localStorage whenever it changes
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, mounted]);
 
   // Detect system preference
   useEffect(() => {
@@ -28,6 +46,64 @@ export default function Home() {
 
   // Determine if dark mode should be active
   const isDark = theme === 'system' ? systemPrefersDark : theme === 'dark';
+
+  // Initialize Cal.com when showCalendar becomes true
+  useEffect(() => {
+    if (showCalendar && showContact) {
+      const currentTheme = isDark ? 'dark' : 'light';
+
+      // Use exact Cal.com embed code
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.innerHTML = `
+        (function (C, A, L) {
+          let p = function (a, ar) { a.q.push(ar); };
+          let d = C.document;
+          C.Cal = C.Cal || function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement("script")).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () { p(api, arguments); };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if(typeof namespace === "string"){
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+        })(window, "https://app.cal.com/embed/embed.js", "init");
+
+        Cal("init", "mango-strategy-call-home", {origin:"https://app.cal.com"});
+
+        Cal.ns["mango-strategy-call-home"]("inline", {
+          elementOrSelector:"#my-cal-inline-mango-strategy-call-home",
+          config: {"layout":"month_view","theme":"${currentTheme}"},
+          calLink: "rjnapolitano/mango-strategy-call",
+        });
+
+        Cal.ns["mango-strategy-call-home"]("ui", {
+          "cssVarsPerTheme":{
+            "light":{"cal-brand":"#FF9F66"},
+            "dark":{"cal-brand":"#FF9F66"}
+          },
+          "hideEventTypeDetails":false,
+          "layout":"month_view",
+          "theme":"${currentTheme}"
+        });
+      `;
+      document.body.appendChild(script);
+    }
+  }, [showCalendar, showContact, isDark]);
 
   // Validate email format
   const validateEmail = (email: string) => {
@@ -80,11 +156,10 @@ export default function Home() {
       if (response.ok) {
         setFormStatus('success');
         form.reset();
+        // Show calendar embed after brief delay
         setTimeout(() => {
-          setShowContact(false);
-          setFormStatus('idle');
-          setFieldErrors({});
-        }, 3000);
+          setShowCalendar(true);
+        }, 1500);
       } else {
         setFormStatus('error');
       }
@@ -94,11 +169,11 @@ export default function Home() {
   };
 
   return (
-    <main className={`relative min-h-screen w-screen flex flex-col transition-colors duration-700 ${
+    <main className={`relative h-screen w-screen flex flex-col overflow-hidden ${
       isDark ? 'bg-black' : 'bg-white'
     }`}>
       {/* Top right controls */}
-      <div className="absolute top-0 right-0 z-20 p-3 md:p-6 flex items-center gap-1.5 md:gap-3">
+      <div className="absolute top-0 right-0 z-20 p-2 md:p-4 flex items-center gap-1.5 md:gap-3">
         {/* Light mode button */}
         <button
           onClick={() => setTheme('light')}
@@ -171,14 +246,14 @@ export default function Home() {
       </div>
 
       {/* Main content - video as focal point */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-2 md:py-3">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-1 md:py-2">
         <div className={`w-full max-w-6xl transition-all duration-1000 ${
           loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
 
           {/* Logo Image */}
-          <div className="flex justify-center mb-3 md:mb-5">
-            <div className="w-[160px] h-[160px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px] flex items-center justify-center">
+          <div className="flex justify-center mb-2 md:mb-3">
+            <div className="w-[120px] h-[120px] md:w-[160px] md:h-[160px] lg:w-[180px] lg:h-[180px] flex items-center justify-center">
               <img
                 src="/mango-logo.png"
                 alt="Mango"
@@ -189,53 +264,78 @@ export default function Home() {
 
           {/* Text content - wider, centered container */}
           <div className="max-w-sm md:max-w-3xl mx-auto">
-            <h1 className={`text-lg md:text-xl lg:text-2xl mb-3 md:mb-4 font-light leading-snug tracking-tight transition-colors ${
+            <h1 className={`text-base md:text-lg lg:text-xl mb-3 md:mb-4 font-bold transition-colors ${
               isDark ? 'text-white' : 'text-black'
             }`}>
-              Mango is a creative agency built for the future of influencer marketing.
+              You know influencer marketing works. You just can't get it to work for you.
             </h1>
 
-            <div className={`space-y-2 md:space-y-3 text-xs md:text-sm font-light leading-relaxed transition-colors ${
+            <div className={`space-y-1.5 md:space-y-2 text-xs md:text-sm font-light leading-relaxed transition-colors ${
               isDark ? 'text-zinc-400' : 'text-zinc-600'
             }`}>
               <p>
-                Let's be real. You built a great product. So did your twelve competitors who launched this quarter.
+                You've spent hours scrolling through creator profiles. Sent 50 DMs. Got 3 responses. Paid $5K to someone with "200K followers." They posted once. You got 12 clicks.
               </p>
 
               <p>
-                The product isn't the problem. Attention is the problem.
+                The marketplaces don't work. The platforms are full of fake engagement. The "good" creators ghost you. The ones who respond want $10K upfront and won't guarantee anything.
               </p>
 
               <p>
-                And the highest-ROI channel for software companies right now isn't Google Ads, Facebook, or your founder posting on LinkedIn hoping something goes viral. It's influencers.
+                Meanwhile, your competitor just went viral with some creator you've never heard of. How did they find them? How much did they pay? What did the brief even say?
               </p>
 
               <p>
-                Maybe you've tried it? DM'd a few creators, got no responses, paid some influencers you didn't love that didn't get any results and thought "this doesn't work." It does work. You just didn't have the system.
+                You're not bad at marketing. The system is broken.
               </p>
 
               <p>
-                That's why we built Mango.
+                That's why we built Mango. We're an influencer marketing agency that uses AI agents to source perfect-fit creators from our roster of 10,000+ influencers. We find them. We negotiate. We brief them. We manage the campaign. We track every dollar.
               </p>
 
               <p>
-                Our talent agency works with over 10,000 creators. Our AI matches your brand to the exact creators and strategy based on your niche, your competition, and what's already working in your space. We handle everything end to end. What works gets amplified. What doesn't gets killed.
+                You get the results. We handle everything else.
               </p>
 
               <p>
-                We're only taking a small number of beta partners right now. If you're tired of watching worse products win because they market better, reach out below.
+                We just had a client add 40M views and $300K in annual recurring revenue in 12 weeks working with Ghost.
               </p>
 
-              <p className="italic">
-                The future of advertising is already here. It's just not evenly distributed.
+              <p>
+                No endless DMs. No fake followers. No ghosting. No guessing. Just campaigns that work or we kill them.
               </p>
+
+              <p>
+                If you're tired of watching worse products win because they figured out influencer marketing first, book a call below.
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex justify-center mt-4 md:mt-6">
+              <a
+                href="/grow/start"
+                className="group relative inline-flex items-center justify-center px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base font-medium rounded-xl transition-all duration-500 ease-out"
+                style={{
+                  backgroundColor: '#FF9F66',
+                  color: '#000000',
+                  boxShadow: '0 4px 14px 0 rgba(255, 159, 102, 0.25)'
+                }}
+              >
+                <span className="relative z-10 transition-transform duration-500 ease-out group-hover:translate-x-0.5">
+                  Grow my sales
+                </span>
+                <div
+                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 ease-out"
+                  style={{ backgroundColor: '#ffffff' }}
+                />
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom navigation */}
-      <div className="px-4 md:px-16 lg:px-24 py-3 md:py-6">
+      <div className="px-4 md:px-16 lg:px-24 py-2 md:py-3">
         {!showContact ? (
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-3">
             <div>
@@ -283,11 +383,11 @@ export default function Home() {
             />
 
             {/* Drawer sliding up from bottom */}
-            <div className={`absolute bottom-0 left-0 right-0 rounded-t-3xl transition-all duration-500 ${
+            <div className={`absolute bottom-0 left-0 right-0 rounded-t-3xl transition-all duration-500 max-h-[90vh] overflow-y-auto ${
               isDark ? 'bg-black' : 'bg-white'
             }`} style={{ animation: 'slideUp 0.5s ease-out' }}>
               {/* Loading/Success Overlay */}
-              {(formStatus === 'submitting' || formStatus === 'success') && (
+              {(formStatus === 'submitting' || (formStatus === 'success' && !showCalendar)) && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 rounded-t-3xl backdrop-blur-sm bg-black/20">
                   <div className="flex flex-col items-center gap-4">
                     {formStatus === 'submitting' ? (
@@ -330,7 +430,7 @@ export default function Home() {
                           </svg>
                         </div>
                         <p className={`text-sm font-light ${isDark ? 'text-white' : 'text-black'}`}>
-                          We'll reach out within 24 hours if you're a fit.
+                          Loading calendar...
                         </p>
                       </>
                     )}
@@ -338,24 +438,44 @@ export default function Home() {
                 </div>
               )}
 
-              <div className="max-w-2xl mx-auto px-6 md:px-12 py-8 md:py-12">
+              <div className={`mx-auto px-6 md:px-12 py-8 md:py-12 transition-all ${showCalendar ? 'max-w-5xl' : 'max-w-2xl'}`}>
                 {/* Close button */}
                 <button
                   onClick={() => setShowContact(false)}
-                  className={`absolute top-6 right-6 text-3xl transition-colors ${
+                  className={`absolute top-6 right-6 text-3xl transition-colors z-50 ${
                     isDark ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'
                   }`}
                 >
                   ×
                 </button>
 
-                <h2 className={`text-2xl md:text-3xl text-center mb-10 md:mb-12 font-light transition-colors ${
-                  isDark ? 'text-white' : 'text-black'
-                }`}>
-                  Get in touch
-                </h2>
+                {showCalendar ? (
+                  <div className="transition-all duration-1000 opacity-100">
+                    <h2 className={`text-base md:text-xl mb-4 font-light text-center transition-colors ${
+                      isDark ? 'text-white' : 'text-black'
+                    }`}>
+                      Choose your time
+                    </h2>
+                    <div className="mx-auto rounded-xl overflow-hidden">
+                      <div
+                        id="my-cal-inline-mango-strategy-call-home"
+                        className="w-full"
+                        style={{
+                          height: '550px',
+                          overflow: 'auto'
+                        }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <h2 className={`text-2xl md:text-3xl text-center mb-10 md:mb-12 font-light transition-colors ${
+                      isDark ? 'text-white' : 'text-black'
+                    }`}>
+                      Get in touch
+                    </h2>
 
-                <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
+                    <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
                   {/* Web3Forms Access Key */}
                   <input type="hidden" name="access_key" value="656fa708-45bd-44d6-8b56-24614825e3ba" />
 
@@ -485,6 +605,8 @@ export default function Home() {
                     </p>
                   )}
                 </form>
+                  </>
+                )}
               </div>
             </div>
           </div>
