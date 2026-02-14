@@ -8,12 +8,21 @@ export async function POST(request: Request) {
 
     // Debug environment variables
     console.log('Email:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-    console.log('Private key exists:', !!process.env.GOOGLE_PRIVATE_KEY);
-    console.log('Private key starts with:', process.env.GOOGLE_PRIVATE_KEY?.substring(0, 50));
+    console.log('Sheet ID:', process.env.GOOGLE_SHEET_ID);
 
-    // Set up Google Sheets API with service account
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-    console.log('Private key after replace starts with:', privateKey?.substring(0, 50));
+    // Handle private key - try multiple formats
+    let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+
+    // Remove outer quotes if they exist
+    if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
+      privateKey = privateKey.slice(1, -1);
+    }
+
+    // Replace literal \n with actual newlines
+    privateKey = privateKey.replace(/\\n/g, '\n');
+
+    console.log('Private key first 50 chars:', privateKey.substring(0, 50));
+    console.log('Private key last 50 chars:', privateKey.substring(privateKey.length - 50));
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
