@@ -15,10 +15,15 @@ export async function POST(request: Request) {
       privateKey = Buffer.from(privateKey, 'base64').toString('utf-8');
     }
 
-    // Remove outer quotes if they exist
-    if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
-      privateKey = privateKey.slice(1, -1);
+    // Aggressively strip all quotes and whitespace from start/end
+    privateKey = privateKey.trim();
+    while (privateKey.startsWith('"') || privateKey.startsWith("'")) {
+      privateKey = privateKey.slice(1);
     }
+    while (privateKey.endsWith('"') || privateKey.endsWith("'")) {
+      privateKey = privateKey.slice(0, -1);
+    }
+    privateKey = privateKey.trim();
 
     // Replace literal \n with actual newlines
     privateKey = privateKey.replace(/\\n/g, '\n');
