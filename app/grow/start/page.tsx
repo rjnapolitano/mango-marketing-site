@@ -247,7 +247,7 @@ export default function GrowStart() {
                 <p className={`text-xs md:text-sm font-medium transition-colors ${
                   isDark ? 'text-white' : 'text-black'
                 }`}>
-                  Yes – I'm ready to scale
+                  Yes. I'm ready to scale
                 </p>
               </div>
             </Link>
@@ -277,7 +277,7 @@ export default function GrowStart() {
                 <p className={`text-xs md:text-sm font-medium transition-colors ${
                   isDark ? 'text-white' : 'text-black'
                 }`}>
-                  No – stay how we are
+                  No. Stay how we are
                 </p>
               </div>
             </Link>
