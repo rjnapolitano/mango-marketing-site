@@ -4,6 +4,7 @@ import { google } from 'googleapis';
 export async function POST(request: Request) {
   try {
     const data = await request.json();
+    console.log('Received funnel data:', data);
 
     // Set up Google Sheets API with service account
     // Your credentials will be stored in environment variables
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
     ]];
 
     // Append to sheet
-    await sheets.spreadsheets.values.append({
+    const result = await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: 'Sheet1!A:L', // Adjust range as needed
       valueInputOption: 'RAW',
@@ -44,6 +45,7 @@ export async function POST(request: Request) {
       },
     });
 
+    console.log('Successfully saved to Google Sheets:', result.data);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error saving to Google Sheets:', error);

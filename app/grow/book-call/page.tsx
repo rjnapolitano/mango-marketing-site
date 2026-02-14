@@ -151,13 +151,19 @@ export default function BookCall() {
           name,
           email,
           company: formData.get('company') as string,
-          companyUrl: formData.get('companyUrl') as string,
+          companyUrl: formData.get('company_url') as string,
         };
 
         // Send to Google Sheets (don't await, let it happen in background)
-        sendToGoogleSheets(submissionData, funnelData).then(() => {
-          // Clear funnel data after successful submission
-          clearFunnelData();
+        sendToGoogleSheets(submissionData, funnelData).then((result) => {
+          if (result.success) {
+            // Clear funnel data after successful submission
+            clearFunnelData();
+          } else {
+            console.error('Failed to save to Google Sheets:', result.error);
+          }
+        }).catch((error) => {
+          console.error('Error sending to Google Sheets:', error);
         });
 
         // Show calendar embed after brief delay
