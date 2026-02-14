@@ -278,10 +278,6 @@ export default function Home() {
               </p>
 
               <p>
-                The marketplaces don't work. The platforms are full of fake engagement. The "good" creators ghost you. The ones who respond want $10K upfront and won't guarantee anything.
-              </p>
-
-              <p>
                 Meanwhile, your competitor just went viral with some creator you've never heard of. How did they find them? How much did they pay? What did the brief even say?
               </p>
 
@@ -290,7 +286,7 @@ export default function Home() {
               </p>
 
               <p>
-                That's why we built Mango. We're an influencer marketing agency that uses AI agents to source perfect-fit creators from our roster of 10,000+ influencers. We find them. We negotiate. We brief them. We manage the campaign. We track every dollar.
+                That's why we built Mango. We're an influencer marketing agency that uses AI agents to source perfect-fit creators from our roster of 10,000+ influencers. We find them. We negotiate. We brief them. We manage the campaign.
               </p>
 
               <p>
@@ -302,11 +298,7 @@ export default function Home() {
               </p>
 
               <p>
-                No endless DMs. No fake followers. No ghosting. No guessing. Just campaigns that work or we kill them.
-              </p>
-
-              <p>
-                If you're tired of watching worse products win because they figured out influencer marketing first, book a call below.
+                If you're tired of watching worse products win because they figured out influencer marketing first, we'd like to help.
               </p>
             </div>
 
@@ -365,7 +357,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className={`text-xs md:text-[15px] transition-colors ${
+            <div className={`text-xs md:text-[15px] mb-4 transition-colors ${
               isDark ? 'text-zinc-400' : 'text-zinc-600'
             }`}>
               Los Angeles, CA ☀️
