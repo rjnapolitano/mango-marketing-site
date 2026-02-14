@@ -441,9 +441,9 @@ export default function BookCall() {
 
                 <div className="relative">
                   <input
-                    type="url"
+                    type="text"
                     name="company_url"
-                    placeholder="🌐 Company website"
+                    placeholder="🌐 Company website (optional)"
                     disabled={formStatus === 'submitting'}
                     className={`w-full bg-transparent border-b px-0 py-2.5 md:py-3 text-xs md:text-sm font-light outline-none transition-all ${
                       isDark
