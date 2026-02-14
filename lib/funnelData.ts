@@ -8,6 +8,7 @@ export interface FunnelData {
   funnelStatus?: string;
   adBudget?: string;
   urgency?: string;
+  wantsSession?: string;
   timestamp?: string;
 }
 
