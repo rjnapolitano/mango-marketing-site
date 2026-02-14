@@ -350,7 +350,7 @@ export default function Home() {
                   Contact
                 </button>
               </nav>
-              <p className={`text-xs md:text-[15px] transition-colors ${
+              <p className={`text-xs md:text-[15px] mb-4 transition-colors ${
                 isDark ? 'text-zinc-400' : 'text-zinc-600'
               }`}>
                 A creative agency built for the future of influencer marketing.
