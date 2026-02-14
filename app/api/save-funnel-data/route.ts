@@ -6,12 +6,14 @@ export async function POST(request: Request) {
     const data = await request.json();
     console.log('Received funnel data:', data);
 
-    // Debug environment variables
-    console.log('Email:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-    console.log('Sheet ID:', process.env.GOOGLE_SHEET_ID);
-
-    // Handle private key - try multiple formats
+    // Handle private key - decode from base64 if needed
     let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+
+    // Check if it's base64 encoded (doesn't start with -----)
+    if (!privateKey.startsWith('-----')) {
+      // Decode from base64
+      privateKey = Buffer.from(privateKey, 'base64').toString('utf-8');
+    }
 
     // Remove outer quotes if they exist
     if (privateKey.startsWith('"') && privateKey.endsWith('"')) {
@@ -21,8 +23,7 @@ export async function POST(request: Request) {
     // Replace literal \n with actual newlines
     privateKey = privateKey.replace(/\\n/g, '\n');
 
-    console.log('Private key first 50 chars:', privateKey.substring(0, 50));
-    console.log('Private key last 50 chars:', privateKey.substring(privateKey.length - 50));
+    console.log('Private key ready, first 30 chars:', privateKey.substring(0, 30));
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
