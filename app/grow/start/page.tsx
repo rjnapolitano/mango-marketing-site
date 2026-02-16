@@ -196,7 +196,6 @@ export default function GrowStart() {
                     src={`/logos/${company.file}`}
                     alt={company.name}
                     className={`h-10 md:h-12 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-80' : 'opacity-70'}`}
-                    style={{ imageRendering: 'high-quality' }}
                   />
                 ))}
                 {[
@@ -217,7 +216,6 @@ export default function GrowStart() {
                     src={`/logos/${company.file}`}
                     alt={company.name}
                     className={`h-10 md:h-12 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-80' : 'opacity-70'}`}
-                    style={{ imageRendering: 'high-quality' }}
                   />
                 ))}
               </div>
