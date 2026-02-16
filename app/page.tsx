@@ -246,7 +246,7 @@ export default function Home() {
       </div>
 
       {/* Main content - video as focal point */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-6 py-1 md:py-2">
+      <div className="flex-1 flex items-center justify-center px-6 md:px-6 py-1 md:py-2">
         <div className={`w-full max-w-6xl transition-all duration-1000 ${
           loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
@@ -263,7 +263,7 @@ export default function Home() {
           </div>
 
           {/* Text content - wider, centered container */}
-          <div className="max-w-sm md:max-w-3xl mx-auto">
+          <div className="w-full max-w-2xl md:max-w-3xl mx-auto">
             <h1 className={`text-base md:text-lg lg:text-xl mb-3 md:mb-4 font-bold transition-colors ${
               isDark ? 'text-white' : 'text-black'
             }`}>

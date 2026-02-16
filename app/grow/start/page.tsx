@@ -172,48 +172,52 @@ export default function GrowStart() {
 
               {/* Scrolling container */}
               <div
-                className="flex gap-8 items-center"
+                className="flex gap-12 md:gap-16 items-center"
                 style={{
-                  animation: 'scroll 20s linear infinite',
+                  animation: 'scroll 30s linear infinite',
                   width: 'max-content'
                 }}
               >
                 {[
-                  { name: 'Perplexity', file: 'perplexity.svg' },
-                  { name: 'TikTok', file: 'tiktok.svg' },
-                  { name: 'Sony', file: 'sony.svg' },
-                  { name: 'Kraken', file: 'kraken.svg' },
-                  { name: 'Wise', file: 'wise.svg' },
-                  { name: 'eToro', file: 'etoro.svg' },
-                  { name: 'CVS', file: 'cvs.svg' },
-                  { name: 'Gap', file: 'gap.svg' },
-                  { name: 'Wayfair', file: 'wayfair.svg' },
-                  { name: 'Yeti', file: 'yeti.svg' }
+                  { name: 'Yeti', file: 'yeti.png' },
+                  { name: 'Sony', file: 'sony.png' },
+                  { name: 'Perplexity', file: 'perplexity.jpg' },
+                  { name: 'Talkspace', file: 'talkspace.png' },
+                  { name: 'Vita Coco', file: 'vita-coco.png' },
+                  { name: 'Outdoorsy', file: 'outdoorsy.png' },
+                  { name: 'Nature Made', file: 'naturemade.png' },
+                  { name: 'Quest', file: 'quest.png' },
+                  { name: 'Lovable', file: 'lovable.png' },
+                  { name: 'Estée Lauder', file: 'esteelauder.png' },
+                  { name: 'David', file: 'david.png' }
                 ].map((company, i) => (
                   <img
                     key={i}
                     src={`/logos/${company.file}`}
                     alt={company.name}
-                    className={`h-8 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-70' : 'opacity-60'}`}
+                    className={`h-10 md:h-12 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-80' : 'opacity-70'}`}
+                    style={{ imageRendering: 'high-quality' }}
                   />
                 ))}
                 {[
-                  { name: 'Perplexity', file: 'perplexity.svg' },
-                  { name: 'TikTok', file: 'tiktok.svg' },
-                  { name: 'Sony', file: 'sony.svg' },
-                  { name: 'Kraken', file: 'kraken.svg' },
-                  { name: 'Wise', file: 'wise.svg' },
-                  { name: 'eToro', file: 'etoro.svg' },
-                  { name: 'CVS', file: 'cvs.svg' },
-                  { name: 'Gap', file: 'gap.svg' },
-                  { name: 'Wayfair', file: 'wayfair.svg' },
-                  { name: 'Yeti', file: 'yeti.svg' }
+                  { name: 'Yeti', file: 'yeti.png' },
+                  { name: 'Sony', file: 'sony.png' },
+                  { name: 'Perplexity', file: 'perplexity.jpg' },
+                  { name: 'Talkspace', file: 'talkspace.png' },
+                  { name: 'Vita Coco', file: 'vita-coco.png' },
+                  { name: 'Outdoorsy', file: 'outdoorsy.png' },
+                  { name: 'Nature Made', file: 'naturemade.png' },
+                  { name: 'Quest', file: 'quest.png' },
+                  { name: 'Lovable', file: 'lovable.png' },
+                  { name: 'Estée Lauder', file: 'esteelauder.png' },
+                  { name: 'David', file: 'david.png' }
                 ].map((company, i) => (
                   <img
                     key={`dup-${i}`}
                     src={`/logos/${company.file}`}
                     alt={company.name}
-                    className={`h-8 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-70' : 'opacity-60'}`}
+                    className={`h-10 md:h-12 w-auto flex-shrink-0 ${isDark ? 'brightness-0 invert opacity-80' : 'opacity-70'}`}
+                    style={{ imageRendering: 'high-quality' }}
                   />
                 ))}
               </div>
