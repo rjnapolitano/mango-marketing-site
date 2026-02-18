@@ -163,11 +163,17 @@ textarea.text-black:-webkit-autofill:active {
   --serif: 'Instrument Serif', Georgia, serif;
   font-family: var(--sans);
   color: var(--gray-900);
-  background: var(--cream);
+  background: #FFFBF7 !important;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+/* Override dark background for badia page */
+body:has(.badia-page) {
+  background-color: #FFFBF7 !important;
 }
 
 .badia-page a {
