@@ -169,11 +169,15 @@ textarea.text-black:-webkit-autofill:active {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* Override dark background for badia page */
+html:has(.badia-page),
 body:has(.badia-page) {
   background-color: #FFFBF7 !important;
+  background: #FFFBF7 !important;
 }
 
 .badia-page a {
