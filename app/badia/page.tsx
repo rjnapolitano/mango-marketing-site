@@ -278,10 +278,13 @@ export default function BadiaPage() {
           <div className="mobile-menu-links">
             <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
             <a href="#why-mango" onClick={() => setMobileMenuOpen(false)}>Why Mango</a>
-            <a href="#competitive" onClick={() => setMobileMenuOpen(false)}>Competitive Landscape</a>
-            <a href="#strategy" onClick={() => setMobileMenuOpen(false)}>Strategy</a>
-            <a href="#creators" onClick={() => setMobileMenuOpen(false)}>Creators</a>
-            <a href="#content-ideas" onClick={() => setMobileMenuOpen(false)}>Ideas</a>
+            <div className="mobile-menu-group">
+              <span className="mobile-menu-label">Badia</span>
+              <a href="#competitive" onClick={() => setMobileMenuOpen(false)}>Competitive Landscape</a>
+              <a href="#strategy" onClick={() => setMobileMenuOpen(false)}>Strategy</a>
+              <a href="#creators" onClick={() => setMobileMenuOpen(false)}>Creators</a>
+              <a href="#content-ideas" onClick={() => setMobileMenuOpen(false)}>Ideas</a>
+            </div>
             <a href="#case-study" onClick={() => setMobileMenuOpen(false)}>Case Study</a>
             <a href="#timeline" onClick={() => setMobileMenuOpen(false)}>Timeline</a>
             <a href="#cta" className="mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>Contact</a>

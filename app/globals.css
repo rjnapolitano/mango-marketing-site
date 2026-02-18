@@ -476,6 +476,34 @@ body:has(.badia-page) {
   background: linear-gradient(135deg, #FF8A4D 0%, #FF6B2E 100%);
 }
 
+.badia-page .mobile-menu-links .mobile-menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.badia-page .mobile-menu-links .mobile-menu-label {
+  display: block;
+  padding: 10px 16px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badia-page .mobile-menu-links .mobile-menu-group a {
+  padding: 12px 16px 12px 32px !important;
+  font-size: 14px;
+  color: #525252;
+}
+
+.badia-page .mobile-menu-links .mobile-menu-group a:hover {
+  color: #1a1816;
+  background: #f5f5f5;
+}
+
 /* Badia Hero */
 .badia-page .hero-wrapper {
   position: relative;
@@ -637,7 +665,7 @@ body:has(.badia-page) {
 }
 
 .badia-page .benefits-header {
-  max-width: 500px;
+  max-width: 700px;
   margin-bottom: 64px;
 }
 
@@ -652,6 +680,7 @@ body:has(.badia-page) {
   font-size: 17px;
   color: var(--gray-600);
   line-height: 1.6;
+  text-wrap: balance;
 }
 
 .badia-page .benefits-grid {
@@ -1788,6 +1817,8 @@ body:has(.badia-page) {
   .badia-page .creators,
   .badia-page .content-ideas,
   .badia-page .cta { padding: 60px 20px; }
+  .badia-page .benefits-header { max-width: 100%; text-align: center; }
+  .badia-page .benefits-header p { font-size: 16px; max-width: 400px; margin: 0 auto; }
   .badia-page .benefits-header h2,
   .badia-page .problem-text h2,
   .badia-page .why-mango-inner h2,
