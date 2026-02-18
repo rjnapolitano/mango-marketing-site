@@ -3,11 +3,130 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
+const PITCH_PASSWORD = "badia2025";
+
 export default function BadiaPage() {
+  const [isAuthed, setIsAuthed] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [checking, setChecking] = useState(true);
+
   const [navScrolled, setNavScrolled] = useState(false);
   const caseStudyRef = useRef<HTMLElement>(null);
   const [countersAnimated, setCountersAnimated] = useState(false);
   const [graphAnimated, setGraphAnimated] = useState(false);
+
+  // Check if already authenticated
+  useEffect(() => {
+    const authed = sessionStorage.getItem("badia-auth") === "true";
+    setIsAuthed(authed);
+    setChecking(false);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === PITCH_PASSWORD) {
+      sessionStorage.setItem("badia-auth", "true");
+      setIsAuthed(true);
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
+  // Password gate UI
+  if (checking) {
+    return <div className="badia-page" style={{ minHeight: "100vh" }} />;
+  }
+
+  if (!isAuthed) {
+    return (
+      <div className="badia-page" style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px"
+      }}>
+        <div style={{
+          maxWidth: "400px",
+          width: "100%",
+          textAlign: "center"
+        }}>
+          <img
+            src="/badia/mango-logo.png"
+            alt="Mango"
+            style={{ height: "60px", marginBottom: "32px" }}
+          />
+          <h1 style={{
+            fontSize: "24px",
+            fontWeight: 600,
+            marginBottom: "8px",
+            color: "#1a1816"
+          }}>
+            This pitch is password protected
+          </h1>
+          <p style={{
+            fontSize: "15px",
+            color: "#737373",
+            marginBottom: "32px"
+          }}>
+            Enter the password to view
+          </p>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError(false);
+              }}
+              placeholder="Enter password"
+              style={{
+                width: "100%",
+                padding: "14px 16px",
+                fontSize: "16px",
+                border: error ? "2px solid #dc2626" : "1px solid #e8e6e3",
+                borderRadius: "8px",
+                marginBottom: "16px",
+                outline: "none",
+                transition: "border-color 0.15s ease"
+              }}
+              autoFocus
+            />
+            {error && (
+              <p style={{
+                color: "#dc2626",
+                fontSize: "14px",
+                marginBottom: "16px",
+                marginTop: "-8px"
+              }}>
+                Incorrect password
+              </p>
+            )}
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "14px 32px",
+                background: "linear-gradient(135deg, #FF9F66 0%, #FF7A3D 100%)",
+                color: "#fff",
+                fontSize: "15px",
+                fontWeight: 600,
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                boxShadow: "0 4px 20px rgba(255, 159, 102, 0.4)",
+                transition: "transform 0.15s ease, box-shadow 0.15s ease"
+              }}
+            >
+              View Pitch
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     // Nav scroll effect
