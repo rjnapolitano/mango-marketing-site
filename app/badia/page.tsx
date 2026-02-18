@@ -42,12 +42,74 @@ export default function BadiaPage() {
   const [countersAnimated, setCountersAnimated] = useState(false);
   const [graphAnimated, setGraphAnimated] = useState(false);
 
+  // ALL HOOKS MUST BE BEFORE ANY RETURNS
+
   // Check if already authenticated
   useEffect(() => {
     const authed = sessionStorage.getItem("badia-auth") === "true";
     setIsAuthed(authed);
     setChecking(false);
   }, []);
+
+  // Nav scroll effect
+  useEffect(() => {
+    if (!isAuthed) return; // Only run when authed
+
+    const handleScroll = () => {
+      setNavScrolled(window.pageYOffset > 50);
+
+      const heroBg = document.querySelector('.hero-bg') as HTMLElement;
+      if (heroBg && window.pageYOffset < window.innerHeight) {
+        heroBg.style.transform = `translateY(${window.pageYOffset * 0.3}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isAuthed]);
+
+  // Intersection observer for animations
+  useEffect(() => {
+    if (!isAuthed) return; // Only run when authed
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .stagger-children').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [isAuthed]);
+
+  // Case study graph and counter animation
+  useEffect(() => {
+    if (!isAuthed || !caseStudyRef.current) return;
+
+    const chartObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersAnimated) {
+          setGraphAnimated(true);
+          setCountersAnimated(true);
+          chartObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    chartObserver.observe(caseStudyRef.current);
+
+    return () => chartObserver.disconnect();
+  }, [isAuthed, countersAnimated]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +122,7 @@ export default function BadiaPage() {
     }
   };
 
-  // Password gate UI
+  // Password gate UI - now AFTER all hooks
   if (checking) {
     return <div className="badia-page" style={{ minHeight: "100vh", background: "#FFFBF7" }} />;
   }
@@ -154,63 +216,6 @@ export default function BadiaPage() {
       </div>
     );
   }
-
-  useEffect(() => {
-    // Nav scroll effect
-    const handleScroll = () => {
-      setNavScrolled(window.pageYOffset > 50);
-
-      // Hero parallax
-      const heroBg = document.querySelector('.hero-bg') as HTMLElement;
-      if (heroBg && window.pageYOffset < window.innerHeight) {
-        heroBg.style.transform = `translateY(${window.pageYOffset * 0.3}px)`;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Intersection observer for animations
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in, .stagger-children').forEach(el => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Case study graph and counter animation
-  useEffect(() => {
-    if (!caseStudyRef.current) return;
-
-    const chartObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !countersAnimated) {
-          setGraphAnimated(true);
-          setCountersAnimated(true);
-          chartObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    chartObserver.observe(caseStudyRef.current);
-
-    return () => chartObserver.disconnect();
-  }, [countersAnimated]);
 
   return (
     <div className="badia-page" style={{ background: "#FFFBF7", minHeight: "100vh" }}>
