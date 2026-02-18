@@ -5,6 +5,32 @@ import Link from "next/link";
 
 const PITCH_PASSWORD = "badia2026!";
 
+// Counter component - must be outside main component to avoid hooks issues
+function Counter({ target, animated }: { target: number; animated: boolean }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!animated) return;
+
+    let current = 0;
+    const duration = 2000;
+    const increment = target / (duration / 16);
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      setCount(Math.floor(current));
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [target, animated]);
+
+  return <>{count}</>;
+}
+
 export default function BadiaPage() {
   const [isAuthed, setIsAuthed] = useState(false);
   const [password, setPassword] = useState("");
@@ -185,32 +211,6 @@ export default function BadiaPage() {
 
     return () => chartObserver.disconnect();
   }, [countersAnimated]);
-
-  // Counter component
-  const Counter = ({ target, suffix = '' }: { target: number; suffix?: string }) => {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-      if (!countersAnimated) return;
-
-      let current = 0;
-      const duration = 2000;
-      const increment = target / (duration / 16);
-
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        setCount(Math.floor(current));
-      }, 16);
-
-      return () => clearInterval(timer);
-    }, [target, countersAnimated]);
-
-    return <>{count}{suffix}</>;
-  };
 
   return (
     <div className="badia-page" style={{ background: "#FFFBF7", minHeight: "100vh" }}>
@@ -778,15 +778,15 @@ export default function BadiaPage() {
             <p>A brand that had never run creator ads. We built their entire UGC program from scratch.</p>
             <div className="case-study-results">
               <div className="result">
-                <span className="result-value"><Counter target={45} />M</span>
+                <span className="result-value"><Counter target={45} animated={countersAnimated} />M</span>
                 <span className="result-label">Views</span>
               </div>
               <div className="result">
-                <span className="result-value"><Counter target={700} />%</span>
+                <span className="result-value"><Counter target={700} animated={countersAnimated} />%</span>
                 <span className="result-label">ROI</span>
               </div>
               <div className="result">
-                <span className="result-value">$<Counter target={300} />K</span>
+                <span className="result-value">$<Counter target={300} animated={countersAnimated} />K</span>
                 <span className="result-label">Revenue</span>
               </div>
             </div>
