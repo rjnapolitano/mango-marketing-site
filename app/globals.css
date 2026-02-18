@@ -140,3 +140,1589 @@ textarea.text-black:-webkit-autofill:active {
 .animate-scroll {
   animation: scroll 20s linear infinite;
 }
+
+/* ================================
+   BADIA PITCH PAGE STYLES
+   ================================ */
+.badia-page {
+  --mango: #FF9F66;
+  --mango-light: #FFE8D6;
+  --mango-dark: #E88A50;
+  --black: #000;
+  --white: #fff;
+  --cream: #FFFBF7;
+  --gray-50: #faf9f7;
+  --gray-100: #f5f4f2;
+  --gray-200: #e8e6e3;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-800: #2d2a26;
+  --gray-900: #1a1816;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  font-family: var(--sans);
+  color: var(--gray-900);
+  background: var(--cream);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+.badia-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.badia-page em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* Badia Animations */
+.badia-page .fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.badia-page .fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.badia-page .stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.badia-page .stagger-children.visible > *:nth-child(1) { transition-delay: 0s; }
+.badia-page .stagger-children.visible > *:nth-child(2) { transition-delay: 0.05s; }
+.badia-page .stagger-children.visible > *:nth-child(3) { transition-delay: 0.1s; }
+.badia-page .stagger-children.visible > *:nth-child(4) { transition-delay: 0.15s; }
+.badia-page .stagger-children.visible > *:nth-child(5) { transition-delay: 0.2s; }
+.badia-page .stagger-children.visible > *:nth-child(6) { transition-delay: 0.25s; }
+.badia-page .stagger-children.visible > *:nth-child(7) { transition-delay: 0.3s; }
+.badia-page .stagger-children.visible > *:nth-child(8) { transition-delay: 0.35s; }
+
+.badia-page .stagger-children.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badia Nav */
+.badia-page .badia-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  background: rgba(255, 251, 247, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: padding 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badia-page .badia-nav.scrolled {
+  padding: 12px 0;
+  box-shadow: 0 2px 20px rgba(255, 159, 102, 0.1);
+}
+
+.badia-page .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badia-page .logo {
+  display: flex;
+  align-items: center;
+}
+
+.badia-page .logo-img {
+  height: 80px;
+  width: auto;
+  transition: height 0.2s ease;
+}
+
+.badia-page .badia-nav.scrolled .logo-img {
+  height: 48px;
+}
+
+.badia-page .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.badia-page .nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  transition: color 0.15s ease;
+}
+
+.badia-page .nav-links a:hover {
+  color: var(--gray-900);
+}
+
+.badia-page .nav-dropdown {
+  position: relative;
+}
+
+.badia-page .nav-dropdown-trigger {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+
+.badia-page .nav-dropdown-trigger:hover {
+  color: var(--gray-900);
+}
+
+.badia-page .nav-dropdown-trigger svg {
+  transition: transform 0.15s ease;
+}
+
+.badia-page .nav-dropdown:hover .nav-dropdown-trigger svg {
+  transform: rotate(180deg);
+}
+
+.badia-page .nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 200px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--gray-200);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.badia-page .nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.badia-page .nav-dropdown-menu a {
+  display: block;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  border-radius: 8px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.badia-page .nav-dropdown-menu a:hover {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.badia-page .nav-links .nav-cta {
+  background: var(--mango);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.badia-page .nav-links .nav-cta:hover {
+  background: var(--mango-dark);
+  color: var(--white);
+}
+
+/* Badia Hero */
+.badia-page .hero-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.badia-page .hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/badia/creatorspic.jpg');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+
+.badia-page .hero-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.badia-page .hero {
+  position: relative;
+  padding: 180px 40px 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .hero-inner {
+  max-width: 800px;
+}
+
+.badia-page .hero-prepared {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.badia-page .hero-prepared span {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badia-page .hero-badia-logo {
+  height: 36px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.badia-page .hero h1 {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+  max-width: 800px;
+  color: var(--white);
+}
+
+.badia-page .hero h1 em {
+  font-weight: 400;
+  color: var(--mango-light);
+}
+
+.badia-page .hero-sub {
+  font-size: 20px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+}
+
+.badia-page .hero-logos {
+  margin-top: 48px;
+}
+
+.badia-page .hero-logos-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.badia-page .hero-logos-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.badia-page .hero-logos-track {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: badiaMarquee 30s linear infinite;
+}
+
+@keyframes badiaMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.badia-page .hero-logos-track img {
+  height: 32px;
+  width: auto;
+  opacity: 0.7;
+  filter: grayscale(100%) brightness(0) invert(1);
+  flex-shrink: 0;
+}
+
+.badia-page .hero-metrics {
+  display: flex;
+  gap: 64px;
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badia-page .metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.badia-page .metric-value {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.badia-page .metric-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Badia Benefits */
+.badia-page .benefits {
+  padding: 120px 40px;
+  background: linear-gradient(135deg, var(--mango-light) 0%, #FFF5ED 100%);
+}
+
+.badia-page .benefits-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .benefits-header {
+  max-width: 500px;
+  margin-bottom: 64px;
+}
+
+.badia-page .benefits-header h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .benefits-header p {
+  font-size: 17px;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.badia-page .benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 32px;
+}
+
+.badia-page .benefit {
+  padding: 32px;
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 159, 102, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  height: 100%;
+}
+
+.badia-page .benefit:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255, 159, 102, 0.15);
+  border-color: var(--mango);
+}
+
+.badia-page .benefit h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.badia-page .benefit p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+/* Badia Problem */
+.badia-page .problem {
+  padding: 120px 40px;
+  background: var(--white);
+}
+
+.badia-page .problem-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.badia-page .problem-text h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.badia-page .problem-text p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+}
+
+.badia-page .problem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.badia-page .problem-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--gray-50);
+  border-radius: 8px;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.badia-page .problem-item:hover {
+  transform: translateX(8px);
+  background: var(--gray-100);
+}
+
+.badia-page .problem-icon {
+  width: 28px;
+  height: 28px;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.badia-page .problem-desc {
+  font-size: 15px;
+  color: var(--gray-700);
+}
+
+/* Badia Services */
+.badia-page .services {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .services h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 64px;
+}
+
+.badia-page .services h2 em {
+  font-weight: 400;
+}
+
+.badia-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.badia-page .service {
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-200);
+  transition: transform 0.15s ease;
+}
+
+.badia-page .service:hover {
+  transform: translateY(-4px);
+}
+
+.badia-page .service:hover .service-num {
+  color: var(--mango);
+}
+
+.badia-page .service-num {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 16px;
+  transition: color 0.15s ease;
+}
+
+.badia-page .service h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.badia-page .service p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+/* Badia Why Mango */
+.badia-page .why-mango {
+  padding: 120px 40px;
+  background: linear-gradient(135deg, #FF9F66 0%, #FF7A3D 100%);
+  color: var(--white);
+}
+
+.badia-page .why-mango-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .why-mango-inner h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 64px;
+}
+
+.badia-page .why-mango-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.badia-page .why-mango-item {
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.badia-page .why-mango-item:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.badia-page .why-mango-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--mango);
+}
+
+.badia-page .why-mango-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.badia-page .why-mango-item p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Badia Competitive */
+.badia-page .competitive {
+  padding: 120px 40px;
+  background: var(--white);
+}
+
+.badia-page .competitive-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .competitive-header {
+  margin-bottom: 64px;
+}
+
+.badia-page .competitive-header h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .competitive-header p {
+  font-size: 18px;
+  color: var(--gray-500);
+}
+
+.badia-page .competitive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+.badia-page .competitive-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--gray-200);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  height: 100%;
+}
+
+.badia-page .competitive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255, 159, 102, 0.12);
+  border-color: var(--mango);
+}
+
+.badia-page .competitive-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.badia-page .competitive-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+.badia-page .competitive-logo.spicology-logo {
+  height: 52px;
+}
+
+.badia-page .competitive-tag {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mango);
+  background: var(--mango-light);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.badia-page .competitive-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.badia-page .competitive-stat {
+  text-align: center;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 12px;
+}
+
+.badia-page .stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--mango);
+  letter-spacing: -0.02em;
+}
+
+.badia-page .stat-label {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.badia-page .competitive-details h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+.badia-page .competitive-details h4:first-child {
+  margin-top: 0;
+}
+
+.badia-page .competitive-details p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+.badia-page .competitive-recommendation {
+  background: linear-gradient(135deg, var(--gray-900) 0%, #2d2622 100%);
+  border-radius: 20px;
+  padding: 48px;
+  color: var(--white);
+}
+
+.badia-page .recommendation-logo {
+  height: 40px;
+  width: auto;
+  margin-bottom: 16px;
+}
+
+.badia-page .recommendation-header h3 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  color: var(--mango);
+}
+
+.badia-page .recommendation-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+}
+
+.badia-page .recommendation-text p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 16px;
+}
+
+.badia-page .recommendation-text strong {
+  color: var(--white);
+}
+
+.badia-page .recommendation-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+}
+
+.badia-page .recommendation-text ul li {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.badia-page .recommendation-text ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--mango);
+}
+
+.badia-page .recommendation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.badia-page .action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badia-page .action-num {
+  width: 32px;
+  height: 32px;
+  background: var(--mango);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.badia-page .action-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+/* Badia Strategy */
+.badia-page .strategy {
+  padding: 120px 40px;
+  background: var(--cream);
+}
+
+.badia-page .strategy-header {
+  max-width: 1200px;
+  margin: 0 auto 64px;
+}
+
+.badia-page .strategy-header h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .strategy-header p {
+  font-size: 17px;
+  color: var(--gray-600);
+}
+
+.badia-page .strategy-cols {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.badia-page .strategy-viral-wrapper {
+  max-width: 1200px;
+  margin: 24px auto 0;
+}
+
+.badia-page .strategy-col {
+  padding: 48px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--gray-200);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.badia-page .strategy-col:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(255, 159, 102, 0.15);
+  border-color: var(--mango);
+}
+
+.badia-page .strategy-col.dark {
+  background: linear-gradient(135deg, var(--gray-900) 0%, #2d2622 100%);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.badia-page .strategy-col.dark:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-color: var(--mango);
+}
+
+.badia-page .strategy-col.viral {
+  background: linear-gradient(135deg, #FF9F66 0%, #FF6B35 100%);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.badia-page .strategy-col.viral:hover {
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.4);
+  border-color: #fff;
+}
+
+.badia-page .strategy-col.viral .strategy-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.badia-page .strategy-col.viral p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.badia-page .strategy-col.viral .strategy-use {
+  border-top-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.badia-page .strategy-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-400);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.badia-page .strategy-col.dark .strategy-label {
+  color: var(--gray-500);
+}
+
+.badia-page .strategy-col h3 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .strategy-col p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin-bottom: 32px;
+}
+
+.badia-page .strategy-col.dark p {
+  color: var(--gray-400);
+}
+
+.badia-page .strategy-use {
+  font-size: 14px;
+  color: var(--gray-500);
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-200);
+  display: block;
+}
+
+.badia-page .strategy-col.dark .strategy-use {
+  border-top-color: var(--gray-600);
+  color: var(--gray-500);
+}
+
+/* Badia Creators */
+.badia-page .creators {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .creators h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.badia-page .creators-sub {
+  font-size: 17px;
+  color: var(--gray-500);
+  margin-bottom: 64px;
+}
+
+.badia-page .creators-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.badia-page .creator {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.badia-page .creator:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(255, 159, 102, 0.15);
+  border-color: var(--mango);
+}
+
+.badia-page .creator-video {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.badia-page .creator-video iframe {
+  width: 100%;
+  min-height: 600px;
+  border: none;
+  max-width: 100%;
+}
+
+.badia-page .creator-video .video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 600px;
+  font-size: 14px;
+  color: var(--gray-400);
+  background: var(--gray-100);
+}
+
+.badia-page .creator-details {
+  padding: 24px;
+}
+
+.badia-page .creator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.badia-page .creator-name {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.badia-page .creator-handle {
+  font-size: 14px;
+  color: var(--gray-500);
+}
+
+.badia-page .creator-meta {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+.badia-page .creator-why {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+}
+
+/* Badia Content Ideas */
+.badia-page .content-ideas {
+  padding: 120px 40px;
+  background: linear-gradient(135deg, #1a1816 0%, #2d2622 100%);
+  color: var(--white);
+}
+
+.badia-page .content-ideas-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .content-ideas-header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  margin-bottom: 64px;
+  align-items: start;
+}
+
+.badia-page .content-ideas-header h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.badia-page .content-ideas-intro p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.badia-page .content-ideas-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.badia-page .content-ideas-intro strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.badia-page .content-ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.badia-page .content-idea {
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.badia-page .content-idea:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--mango);
+}
+
+.badia-page .idea-num {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.badia-page .content-idea h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.badia-page .content-idea p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-400);
+}
+
+/* Badia Timeline */
+.badia-page .timeline {
+  padding: 120px 40px;
+  background: var(--white);
+}
+
+.badia-page .timeline-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .timeline-header {
+  margin-bottom: 64px;
+}
+
+.badia-page .timeline-header h2 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .timeline-header p {
+  font-size: 17px;
+  color: var(--gray-500);
+}
+
+.badia-page .timeline-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.badia-page .timeline-step {
+  padding: 28px;
+  background: var(--cream);
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.badia-page .timeline-step:hover {
+  transform: translateY(-4px);
+  border-color: var(--mango);
+}
+
+.badia-page .timeline-week {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mango);
+  background: var(--mango-light);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.badia-page .timeline-step h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.badia-page .timeline-step p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-600);
+}
+
+/* Badia Case Study */
+.badia-page .case-study {
+  padding: 100px 40px;
+  background: var(--cream);
+}
+
+.badia-page .case-study-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.badia-page .case-study-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mango-dark);
+  margin-bottom: 16px;
+}
+
+.badia-page .case-study-text h2 {
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--gray-900);
+}
+
+.badia-page .case-study-text > p {
+  font-size: 17px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.badia-page .case-study-results {
+  display: flex;
+  gap: 32px;
+}
+
+.badia-page .result {
+  display: flex;
+  flex-direction: column;
+}
+
+.badia-page .result-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+}
+
+.badia-page .result-label {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+.badia-page .case-study-graph {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--gray-200);
+}
+
+.badia-page .graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.badia-page .graph-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.badia-page .graph-area {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 8px;
+}
+
+.badia-page .graph-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.badia-page .graph-y-axis span {
+  font-size: 10px;
+  color: var(--gray-400);
+  text-align: right;
+}
+
+.badia-page .graph-canvas {
+  position: relative;
+  height: 160px;
+  border-bottom: 1px solid var(--gray-200);
+  border-left: 1px solid var(--gray-200);
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.badia-page .graph-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.badia-page .graph-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  transition: stroke-dashoffset 2s ease-out;
+}
+
+.badia-page .graph-line.animated {
+  stroke-dashoffset: 0;
+}
+
+.badia-page .graph-x-axis {
+  display: flex;
+  justify-content: space-between;
+  grid-column: 2;
+  grid-row: 2;
+  padding-top: 8px;
+}
+
+.badia-page .graph-x-axis span {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+/* Badia CTA */
+.badia-page .cta {
+  padding: 120px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.badia-page .cta h2 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.badia-page .cta > p {
+  font-size: 18px;
+  color: var(--gray-500);
+  margin-bottom: 32px;
+}
+
+.badia-page .cta-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--mango) 0%, #FF7A3D 100%);
+  color: var(--white);
+  font-size: 10pt;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 20px rgba(255, 159, 102, 0.4);
+  margin-bottom: 24px;
+}
+
+.badia-page .cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 159, 102, 0.5);
+}
+
+.badia-page .cta-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badia-page .cta-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray-800);
+}
+
+.badia-page .cta-title {
+  font-size: 14px;
+  color: var(--gray-500);
+}
+
+.badia-page .cta-divider {
+  color: var(--gray-300);
+  font-size: 14px;
+}
+
+.badia-page .cta-contact a {
+  font-size: 14px;
+  color: var(--gray-500);
+  transition: color 0.12s;
+}
+
+.badia-page .cta-contact a:hover {
+  color: var(--mango);
+}
+
+/* Badia Footer */
+.badia-page .badia-footer {
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--gray-200);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badia-page .footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.badia-page .footer-img {
+  height: 24px;
+  width: auto;
+}
+
+.badia-page .footer-note {
+  font-size: 13px;
+  color: var(--gray-400);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badia-page .footer-badia-logo {
+  height: 18px;
+  width: auto;
+}
+
+/* Badia Mobile Responsive */
+@media (max-width: 1024px) {
+  .badia-page .nav-links { gap: 16px; }
+  .badia-page .nav-links a { font-size: 12px; }
+  .badia-page .benefits-grid,
+  .badia-page .services-grid,
+  .badia-page .why-mango-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .badia-page .content-ideas-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .badia-page .content-ideas-header { grid-template-columns: 1fr; gap: 24px; }
+  .badia-page .competitive-grid { grid-template-columns: 1fr; gap: 20px; }
+  .badia-page .recommendation-content { grid-template-columns: 1fr; gap: 32px; }
+  .badia-page .timeline-steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .badia-page .creators-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .badia-page .creator-video iframe { min-height: 500px; }
+  .badia-page .strategy-cols { gap: 20px; }
+}
+
+@media (max-width: 768px) {
+  .badia-page .logo-img { height: 60px; }
+  .badia-page .badia-nav.scrolled .logo-img { height: 36px; }
+  .badia-page .nav-links { display: none; }
+  .badia-page .hero { padding: 120px 20px 60px; }
+  .badia-page .hero-bg::after { background: rgba(0, 0, 0, 0.8); }
+  .badia-page .hero h1 { font-size: 28px; line-height: 1.2; margin-bottom: 20px; }
+  .badia-page .hero-sub { font-size: 15px; }
+  .badia-page .hero-metrics { flex-direction: row; flex-wrap: nowrap; justify-content: space-between; gap: 16px; margin-top: 40px; padding-top: 24px; }
+  .badia-page .metric { text-align: center; flex: 1; }
+  .badia-page .metric-value { font-size: 22px; }
+  .badia-page .metric-label { font-size: 11px; }
+  .badia-page .benefits,
+  .badia-page .problem,
+  .badia-page .why-mango,
+  .badia-page .services,
+  .badia-page .strategy,
+  .badia-page .competitive,
+  .badia-page .creators,
+  .badia-page .content-ideas,
+  .badia-page .cta { padding: 60px 20px; }
+  .badia-page .benefits-header h2,
+  .badia-page .problem-text h2,
+  .badia-page .why-mango-inner h2,
+  .badia-page .services h2,
+  .badia-page .strategy-header h2,
+  .badia-page .creators h2,
+  .badia-page .content-ideas-header h2,
+  .badia-page .competitive-header h2,
+  .badia-page .timeline-header h2,
+  .badia-page .cta h2 { font-size: 26px; margin-bottom: 12px; text-wrap: balance; }
+  .badia-page .benefits-grid { grid-template-columns: 1fr; gap: 16px; }
+  .badia-page .problem-inner { grid-template-columns: 1fr; gap: 32px; }
+  .badia-page .why-mango-grid { grid-template-columns: 1fr; gap: 16px; }
+  .badia-page .services-grid { grid-template-columns: 1fr; gap: 24px; }
+  .badia-page .strategy-cols { grid-template-columns: 1fr; gap: 16px; }
+  .badia-page .strategy-col { padding: 24px; }
+  .badia-page .timeline { padding: 60px 20px; }
+  .badia-page .timeline-steps { grid-template-columns: 1fr; gap: 12px; }
+  .badia-page .creators-grid { grid-template-columns: 1fr; gap: 20px; }
+  .badia-page .creator-video iframe { min-height: 420px; }
+  .badia-page .content-ideas-grid { grid-template-columns: 1fr; gap: 12px; }
+  .badia-page .case-study { padding: 60px 20px; }
+  .badia-page .case-study-inner { grid-template-columns: 1fr; gap: 48px; }
+  .badia-page .case-study-text { text-align: center; }
+  .badia-page .case-study-results { justify-content: center; }
+  .badia-page .case-study-text h2 { font-size: 32px; }
+  .badia-page .cta h2 { font-size: 32px; }
+  .badia-page .cta-btn { width: 100%; }
+  .badia-page .cta-contact { flex-direction: column; gap: 4px; }
+  .badia-page .cta-divider { display: none; }
+  .badia-page .badia-footer { flex-direction: column; gap: 12px; padding: 24px 20px; }
+}
+
+@media (max-width: 480px) {
+  .badia-page .logo-img { height: 48px; }
+  .badia-page .badia-nav.scrolled .logo-img { height: 32px; }
+  .badia-page .nav-inner { padding: 0 16px; }
+  .badia-page .hero { padding: 100px 16px 48px; }
+  .badia-page .hero h1 { font-size: 24px; }
+  .badia-page .hero-sub { font-size: 14px; }
+  .badia-page .metric-value { font-size: 20px; }
+  .badia-page .benefits,
+  .badia-page .problem,
+  .badia-page .why-mango,
+  .badia-page .services,
+  .badia-page .strategy,
+  .badia-page .competitive,
+  .badia-page .timeline,
+  .badia-page .creators,
+  .badia-page .content-ideas,
+  .badia-page .cta { padding: 48px 16px; }
+  .badia-page .benefits-header h2,
+  .badia-page .problem-text h2,
+  .badia-page .why-mango-inner h2,
+  .badia-page .services h2,
+  .badia-page .strategy-header h2,
+  .badia-page .creators h2,
+  .badia-page .content-ideas-header h2,
+  .badia-page .competitive-header h2,
+  .badia-page .timeline-header h2,
+  .badia-page .case-study-text h2,
+  .badia-page .cta h2 { font-size: 22px; text-wrap: balance; }
+  .badia-page .case-study { padding: 48px 16px; }
+  .badia-page .case-study-text h2 { font-size: 26px; }
+  .badia-page .cta h2 { font-size: 26px; }
+}
