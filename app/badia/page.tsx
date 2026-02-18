@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-const PITCH_PASSWORD = "badia2025";
+const PITCH_PASSWORD = "badia2026!";
 
 export default function BadiaPage() {
   const [isAuthed, setIsAuthed] = useState(false);
