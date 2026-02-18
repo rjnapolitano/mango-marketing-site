@@ -36,7 +36,7 @@ export default function BadiaPage() {
 
   // Password gate UI
   if (checking) {
-    return <div className="badia-page" style={{ minHeight: "100vh" }} />;
+    return <div className="badia-page" style={{ minHeight: "100vh", background: "#FFFBF7" }} />;
   }
 
   if (!isAuthed) {
@@ -46,7 +46,8 @@ export default function BadiaPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "20px"
+        padding: "20px",
+        background: "#FFFBF7"
       }}>
         <div style={{
           maxWidth: "400px",
@@ -212,7 +213,7 @@ export default function BadiaPage() {
   };
 
   return (
-    <div className="badia-page">
+    <div className="badia-page" style={{ background: "#FFFBF7", minHeight: "100vh" }}>
       {/* Nav */}
       <nav className={`badia-nav ${navScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
