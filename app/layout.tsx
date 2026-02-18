@@ -15,6 +15,27 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
+  openGraph: {
+    title: "Mango",
+    description: "A creative agency built for the future of influencer marketing",
+    url: "https://mangohq.com",
+    siteName: "Mango",
+    images: [
+      {
+        url: "/mango-logo.png",
+        width: 400,
+        height: 400,
+        alt: "Mango",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Mango",
+    description: "A creative agency built for the future of influencer marketing",
+    images: ["/mango-logo.png"],
+  },
 };
 
 export default function RootLayout({

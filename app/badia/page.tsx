@@ -38,6 +38,7 @@ export default function BadiaPage() {
   const [checking, setChecking] = useState(true);
 
   const [navScrolled, setNavScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const caseStudyRef = useRef<HTMLElement>(null);
   const [countersAnimated, setCountersAnimated] = useState(false);
   const [graphAnimated, setGraphAnimated] = useState(false);
@@ -91,6 +92,18 @@ export default function BadiaPage() {
 
     return () => observer.disconnect();
   }, [isAuthed]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   // Case study graph and counter animation
   useEffect(() => {
@@ -246,8 +259,35 @@ export default function BadiaPage() {
             <a href="#timeline">Timeline</a>
             <a href="#cta" className="nav-cta">Contact</a>
           </div>
+          {/* Mobile hamburger */}
+          <button
+            className={`mobile-menu-btn ${mobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+        <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-menu-links">
+            <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+            <a href="#why-mango" onClick={() => setMobileMenuOpen(false)}>Why Mango</a>
+            <a href="#competitive" onClick={() => setMobileMenuOpen(false)}>Competitive Landscape</a>
+            <a href="#strategy" onClick={() => setMobileMenuOpen(false)}>Strategy</a>
+            <a href="#creators" onClick={() => setMobileMenuOpen(false)}>Creators</a>
+            <a href="#content-ideas" onClick={() => setMobileMenuOpen(false)}>Ideas</a>
+            <a href="#case-study" onClick={() => setMobileMenuOpen(false)}>Case Study</a>
+            <a href="#timeline" onClick={() => setMobileMenuOpen(false)}>Timeline</a>
+            <a href="#cta" className="mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+          </div>
+        </div>
+      </div>
 
       {/* Hero */}
       <section className="hero-wrapper">
