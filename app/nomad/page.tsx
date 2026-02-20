@@ -193,7 +193,7 @@ export default function NomadPitchPage() {
           <div className="hero-inner">
             <div className="hero-prepared">
               <span>Prepared for</span>
-              <img src="/nomad/nomad-logo.png" alt="Nomad Cosmetics" className="hero-badia-logo" style={{ height: "40px" }} />
+              <img src="/nomad/nomad-logo.png" alt="Nomad Cosmetics" className="hero-badia-logo" style={{ height: "20px" }} />
             </div>
             <h1>Turn your loyal community into a <em>social media powerhouse</em></h1>
             <p className="hero-sub">Mango is a creative agency with 11 years of experience in social media management and creator marketing. We&apos;ll transform your existing influencer program into a streamlined daily operation, managing IG, FB, and TikTok while keeping your community engaged and growing.</p>
@@ -378,7 +378,7 @@ export default function NomadPitchPage() {
           <div className="competitive-grid stagger-children">
             <div className="competitive-card">
               <div className="competitive-brand">
-                <img src="/nomad/rarebeauty-logo.png" alt="Rare Beauty" className="competitive-logo" />
+                <img src="/nomad/rarebeauty-logo.png" alt="Rare Beauty" className="competitive-logo" style={{ height: "28px" }} />
                 <span className="competitive-tag">TikTok favorite</span>
               </div>
               <div className="competitive-stats">
@@ -396,28 +396,6 @@ export default function NomadPitchPage() {
                 <p>Prioritized micro-creators over macro-influencers. Let the Soft Pinch Liquid Blush go viral through organic creator discovery rather than campaigns. Selena appears as narrator, not star, making the brand bigger than the founder.</p>
                 <h4>Key insight</h4>
                 <p>Creator-led product discovery beats traditional marketing. 98% of their ad conversions come from creator content, not brand content.</p>
-              </div>
-            </div>
-            <div className="competitive-card">
-              <div className="competitive-brand">
-                <img src="/nomad/elf-logo.png" alt="e.l.f. Cosmetics" className="competitive-logo" />
-                <span className="competitive-tag">Viral pioneer</span>
-              </div>
-              <div className="competitive-stats">
-                <div className="competitive-stat">
-                  <span className="stat-value">9.4B</span>
-                  <span className="stat-label">TikTok views</span>
-                </div>
-                <div className="competitive-stat">
-                  <span className="stat-value">$1B+</span>
-                  <span className="stat-label">Revenue</span>
-                </div>
-              </div>
-              <div className="competitive-details">
-                <h4>What they did</h4>
-                <p>Created the first-ever original TikTok song for #EyesLipsFace challenge. Generated 5M+ UGC videos and attracted organic celebrity participation from Ellen, Lizzo, and Reese Witherspoon.</p>
-                <h4>Key insight</h4>
-                <p>Audio-first content creates movements. The song hit #4 on Spotify and turned a campaign into a cultural moment.</p>
               </div>
             </div>
             <div className="competitive-card">
@@ -444,7 +422,7 @@ export default function NomadPitchPage() {
             </div>
             <div className="competitive-card">
               <div className="competitive-brand">
-                <img src="/nomad/colourpop-logo.png" alt="ColourPop" className="competitive-logo" />
+                <img src="/nomad/colourpop-logo.svg" alt="ColourPop" className="competitive-logo" style={{ height: "28px" }} />
                 <span className="competitive-tag">Engagement king</span>
               </div>
               <div className="competitive-stats">
@@ -469,7 +447,7 @@ export default function NomadPitchPage() {
           {/* Recommendation */}
           <div className="competitive-recommendation">
             <div className="recommendation-header">
-              <img src="/nomad/nomad-logo.png" alt="Nomad Cosmetics" className="recommendation-logo" style={{ height: "32px" }} />
+              <img src="/nomad/nomad-logo.png" alt="Nomad Cosmetics" className="recommendation-logo" style={{ height: "32px", filter: "invert(1) brightness(2)" }} />
               <h3>Our recommendation</h3>
             </div>
             <div className="recommendation-content">
@@ -529,50 +507,38 @@ export default function NomadPitchPage() {
 
       {/* Creators */}
       <section className="creators" id="creators">
-        <h2>Example creators for Nomad</h2>
-        <p className="creators-sub">Clean beauty enthusiasts with travel-inspired, inclusive audiences</p>
-        <div className="creators-grid stagger-children">
-          <div className="creator">
-            <div className="creator-video">
-              <iframe src="https://www.instagram.com/reel/C9oD8g_Rr7d/embed" frameBorder="0" allow="autoplay" allowFullScreen></iframe>
-              <span className="video-placeholder">Video embed</span>
-            </div>
-            <div className="creator-details">
-              <div className="creator-info">
-                <span className="creator-name">Jazmin Gonzalez</span>
-                <span className="creator-handle">@soyjazmingonzalez</span>
-                <span className="creator-meta">892K followers · Instagram</span>
+        <h2>Creator example</h2>
+        <p className="creators-sub">Versatile UGC creators like Maya Herring</p>
+        <div className="maya-grid">
+          <div style={{ background: "#fff", borderRadius: "16px", padding: "32px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+              <img src="/nomad/maya.jpg" alt="Maya Herring" style={{ width: "56px", height: "56px", borderRadius: "50%", objectFit: "cover" }} />
+              <div>
+                <h3 style={{ fontSize: "18px", fontWeight: 600, margin: 0, color: "#1a1816" }}>Maya Herring</h3>
+                <p style={{ fontSize: "14px", color: "#737373", margin: "4px 0 0" }}>UGC Creator + Strategist · Texas</p>
               </div>
-              <p className="creator-why">Why they fit: Clean beauty advocate with travel content. Her audience loves discovering new products through her authentic recommendations.</p>
             </div>
+            <p style={{ fontSize: "15px", color: "#525252", lineHeight: 1.6, margin: "0 0 16px" }}>Maya specializes in story-first videos that build trust and convert. With <strong>200+ brand partnerships</strong> including Birkenstock, Function of Beauty, and Ultra Violette, she understands how to showcase beauty products authentically.</p>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "12px", padding: "6px 12px", background: "#f5f5f5", borderRadius: "20px", color: "#525252" }}>Talking Head</span>
+              <span style={{ fontSize: "12px", padding: "6px 12px", background: "#f5f5f5", borderRadius: "20px", color: "#525252" }}>Demonstration</span>
+              <span style={{ fontSize: "12px", padding: "6px 12px", background: "#f5f5f5", borderRadius: "20px", color: "#525252" }}>Lifestyle</span>
+              <span style={{ fontSize: "12px", padding: "6px 12px", background: "#f5f5f5", borderRadius: "20px", color: "#525252" }}>Travel</span>
+            </div>
+            <video src="/nomad/maya-herring.mp4" controls autoPlay muted loop playsInline style={{ width: "100%", borderRadius: "12px", marginTop: "20px" }} />
           </div>
-          <div className="creator">
-            <div className="creator-video">
-              <iframe src="https://www.instagram.com/reel/DDSmVGMRFHO/embed" frameBorder="0" allow="autoplay" allowFullScreen></iframe>
-              <span className="video-placeholder">Video embed</span>
-            </div>
-            <div className="creator-details">
-              <div className="creator-info">
-                <span className="creator-name">Mikayla Nogueira</span>
-                <span className="creator-handle">@mikaylanogueira</span>
-                <span className="creator-meta">16.6M followers · TikTok</span>
-              </div>
-              <p className="creator-why">Why they fit: The most trusted voice in beauty TikTok. Her honest reviews and relatable content have made products go viral overnight.</p>
-            </div>
-          </div>
-          <div className="creator">
-            <div className="creator-video">
-              <iframe src="https://www.instagram.com/reel/DEwKoNuPmaB/embed" frameBorder="0" allow="autoplay" allowFullScreen></iframe>
-              <span className="video-placeholder">Video embed</span>
-            </div>
-            <div className="creator-details">
-              <div className="creator-info">
-                <span className="creator-name">Nyma Tang</span>
-                <span className="creator-handle">@nyaborhood</span>
-                <span className="creator-meta">1.5M followers · YouTube/IG</span>
-              </div>
-              <p className="creator-why">Why they fit: Champion of inclusive beauty. Her &quot;Darkest Shade&quot; series made brands rethink shade ranges. Perfect for Nomad&apos;s inclusive values.</p>
-            </div>
+          <div style={{ background: "#fff", borderRadius: "16px", padding: "32px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+            <h4 style={{ fontSize: "14px", fontWeight: 600, color: "#FF7A3D", marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.5px" }}>Why she&apos;s perfect for Nomad</h4>
+            <ul style={{ fontSize: "15px", color: "#525252", lineHeight: 1.8, margin: 0, paddingLeft: "20px" }}>
+              <li>Travel content expertise matches Nomad&apos;s destination-themed palettes</li>
+              <li>Creates authentic &quot;Pack With Me&quot; and GRWM content native to TikTok</li>
+              <li>One casual video hit <strong>500K views</strong> and <strong>80K interactions</strong></li>
+              <li>Merges creative direction with conversion strategy</li>
+              <li>Experience with beauty and lifestyle brands</li>
+            </ul>
+            <a href="https://www.mayaherring.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", marginTop: "20px", padding: "12px 24px", background: "linear-gradient(135deg, #FF9F66 0%, #FF7A3D 100%)", color: "#fff", fontSize: "14px", fontWeight: 600, border: "none", borderRadius: "8px", textDecoration: "none" }}>
+              View portfolio →
+            </a>
           </div>
         </div>
       </section>
