@@ -277,7 +277,7 @@ export default function NomadPitchPage() {
           <div className="problem-text">
             <h2>Social media management is painful</h2>
             <p>You&apos;ve built something special with Nomad&apos;s community. But scaling social while maintaining that authentic connection? That&apos;s where brands get stuck.</p>
-            <p>Mango eliminates the chaos. We&apos;ve managed social for beauty brands for over a decade. We know how to maintain voice, curate UGC at scale, and keep communities engaged without losing the personal touch that made Nomad special.</p>
+            <p>Mango eliminates the chaos. We&apos;ve managed social for brands for over a decade. We know how to maintain voice, curate UGC at scale, and keep communities engaged without losing the personal touch that made Nomad special.</p>
           </div>
           <div className="problem-list stagger-children">
             <div className="problem-item">
