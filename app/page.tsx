@@ -263,7 +263,7 @@ export default function Home() {
           </div>
 
           {/* Text content - wider, centered container */}
-          <div className="max-w-sm md:max-w-3xl mx-auto">
+          <div className="w-full md:max-w-3xl mx-auto text-left">
             <h1 className={`text-base md:text-lg lg:text-xl mb-3 md:mb-4 font-bold transition-colors ${
               isDark ? 'text-white' : 'text-black'
             }`}>
